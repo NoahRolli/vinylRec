@@ -4,10 +4,10 @@ from pathlib import Path
 PROJECT_DIR = Path("/Users/noahrolli/vsCode/vinylrecommendations").resolve().parent.parent
 
 #externer Datenstandort
-DATA_DIR = Path("/Volumes/T7/vinylRecommendations/data")
+DATA_DIR = Path("/Volumes/T7_ML/vinylRecommendations/data")
 
 # === DATEIEN ===
-#spätere füge ich hier vielleich andere dateien hinzu
+COLLECTION_FILE = DATA_DIR / "vinyl_collection.csv"
 
 # === Ollama ===
 OLLAMA_BASE_URL = "http://localhost:11434"
