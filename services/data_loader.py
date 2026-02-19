@@ -1,25 +1,29 @@
-import csv
-from infra.settings import COLLECTION_FILE
+import sqlite3
+from infra.settings import DB_FILE
 from core.models import Vinyl
 
 
 def load_collection() -> list[Vinyl]:
-    """Liest die CSV-Datei ein und gibt eine Liste von Vinyl-Objekten zurück."""
+    """Liest die Sammlung aus der SQLite-Datenbank."""
+    connection = sqlite3.connect(DB_FILE)
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT artist, album, genre_primary, genre_secondary, mood, year, type FROM vinyl")
+    rows = cursor.fetchall()
+
+    connection.close()
+
     collection = []
-
-    with open(COLLECTION_FILE, newline="", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
-
-        for row in reader:
-            vinyl = Vinyl(
-                artist=row["artist"],
-                album=row["album"],
-                genre_primary=row["genre_primary"],
-                genre_secondary=row["genre_secondary"],
-                mood=row["mood"],
-                year=float(row["year"]) if row["year"] else None,
-                type=row["type"],
-            )
-            collection.append(vinyl)
+    for row in rows:
+        vinyl = Vinyl(
+            artist=row[0],
+            album=row[1],
+            genre_primary=row[2],
+            genre_secondary=row[3],
+            mood=row[4],
+            year=row[5],
+            type=row[6],
+        )
+        collection.append(vinyl)
 
     return collection
