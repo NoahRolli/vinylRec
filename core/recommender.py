@@ -22,7 +22,7 @@ def build_prompt(collection: list[Vinyl], mood: str, occasion: str, duration: st
                 feedback_text += f" — Kommentar: {fb['comment']}"
             feedback_text += "\n"
 
-    prompt = f"""Du bist ein Musikexperte und Schallplattenberater. 
+    prompt = f"""Du bist ein Musikexperte und Schallplattenberater.
 Der Nutzer hat folgende Schallplattensammlung:
 
 {vinyl_list}
@@ -32,11 +32,20 @@ Der Nutzer möchte Musik hören mit folgenden Angaben:
 - Anlass: {occasion}
 - Verfügbare Zeit: {duration}
 
-Empfehle passende Schallplatten NUR aus der obigen Sammlung.
+Wichtig: Wenn die Stimmung negativ ist (traurig, melancholisch, gestresst, wütend),
+frage dich ob der Nutzer Musik hören will die diese Stimmung spiegelt,
+oder ob Musik die aufheitert und die Stimmung hebt besser wäre.
+Empfehle BEIDE Optionen:
+1. "Wenn du deine Stimmung ausleben willst:" → passende melancholische/ruhige Platten
+2. "Wenn du deine Stimmung heben willst:" → aufheiternde/energetische Platten
+
+Bei positiver oder neutraler Stimmung empfehle einfach passende Platten.
+
+Empfehle Schallplatten NUR aus der obigen Sammlung.
 Berücksichtige das bisherige Feedback bei deiner Auswahl.
 Erkläre kurz, warum jede Platte zur Stimmung und zum Anlass passt.
 Schlage eine Reihenfolge vor, die einen schönen Hörfluss ergibt.
-Antworte auf Deutsch."""
+Antworte auf Englisch."""
 
     return prompt
 
