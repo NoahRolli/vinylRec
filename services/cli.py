@@ -2,6 +2,7 @@ from core.models import Vinyl
 from core.recommender import get_recommendation
 from services.collection_manager import add_vinyl, delete_vinyl, update_vinyl, list_collection
 from services.feedback_manager import save_feedback
+from services.spinner import Spinner
 
 
 def ask(question: str) -> str | None:
@@ -38,8 +39,10 @@ def handle_recommendation(collection):
     duration = ask("Wie lange willst du hören? ")
     if duration is None: return
 
-    print("\nEinen Moment, ich überlege...\n")
+    spinner = Spinner("Ich durchstöbere deine Sammlung")
+    spinner.start()
     empfehlung = get_recommendation(collection, mood, occasion, duration)
+    spinner.stop()
     print(empfehlung)
 
     # === Feedback nach der Empfehlung ===
