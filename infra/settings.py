@@ -1,15 +1,21 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
-#Projektsstandort Lokal 
-PROJECT_DIR = Path("/Users/noahrolli/vsCode/vinylrecommendations").resolve().parent.parent
+# .env Datei laden
+load_dotenv()
 
-#externer Datenstandort
-DATA_DIR = Path("/Volumes/T7_ML/vinylRecommendations/data")
+# === Basispfade ===
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = Path(os.getenv("DATA_DIR", "/Volumes/T7_ML/vinylRecommendations/data"))
 
-# === DATEIEN ===
+# === Dateien ===
 COLLECTION_FILE = DATA_DIR / "vinyl_collection.csv"
 DB_FILE = DATA_DIR / "vinyl_collection.db"
 
 # === Ollama ===
-OLLAMA_BASE_URL = "http://localhost:11434"
-OLLAMA_MODEL = "llama3"
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3")
+
+# === Discogs (kommt später) ===
+DISCOGS_API_TOKEN = os.getenv("DISCOGS_API_TOKEN", "")
