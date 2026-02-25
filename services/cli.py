@@ -1,6 +1,7 @@
 from core.models import Vinyl
 from core.recommender import get_recommendation
 from services.collection_manager import add_vinyl, delete_vinyl, update_vinyl, list_collection
+from services.feedback_manager import save_feedback
 
 
 def ask(question: str) -> str | None:
@@ -40,6 +41,37 @@ def handle_recommendation(collection):
     print("\nEinen Moment, ich überlege...\n")
     empfehlung = get_recommendation(collection, mood, occasion, duration)
     print(empfehlung)
+
+    # === Feedback nach der Empfehlung ===
+    print("\n--- Feedback (q = überspringen) ---")
+    feedback_choice = ask("Möchtest du Feedback geben? (ja/nein): ")
+    if feedback_choice is None or feedback_choice.lower() != "ja":
+        return
+
+    # Sammlung anzeigen damit der Nutzer die ID sieht
+    list_collection()
+
+    while True:
+        vinyl_id = ask("ID der gehörten Platte (oder 'fertig'): ")
+        if vinyl_id is None or vinyl_id.lower() == "fertig":
+            break
+
+        rating = ask("Bewertung (gut/mittel/schlecht): ")
+        if rating is None: break
+
+        comment = ask("Kommentar (Enter für keinen): ")
+        if comment is None: break
+
+        save_feedback(
+            vinyl_id=int(vinyl_id),
+            mood=mood,
+            occasion=occasion,
+            rating=rating,
+            comment=comment if comment else "",
+        )
+        print("✓ Feedback gespeichert!")
+
+    print("Danke für dein Feedback!")
 
 
 def handle_manage():
