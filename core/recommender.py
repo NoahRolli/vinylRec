@@ -49,8 +49,32 @@ Antworte auf Englisch."""
 
     return prompt
 
-
 def get_recommendation(collection: list[Vinyl], mood: str, occasion: str, duration: str) -> str:
     """Holt eine Empfehlung vom LLM basierend auf Sammlung und Wünschen."""
     prompt = build_prompt(collection, mood, occasion, duration)
+    return ask_llm(prompt)
+
+def get_purchase_recommendation(collection: list[Vinyl]) -> str:
+    """Analysiert die Sammlung und empfiehlt was fehlt."""
+
+    # Sammlung formatieren
+    vinyl_list = ""
+    for v in collection:
+        vinyl_list += f"- {v.artist} – {v.album} | Genre: {v.genre_primary}/{v.genre_secondary} | Mood: {v.mood} | Jahr: {v.year}\n"
+
+    prompt = f"""Du bist ein Musikexperte und Schallplattenberater.
+Der Nutzer hat folgende Schallplattensammlung:
+
+{vinyl_list}
+
+Analysiere die Sammlung und identifiziere:
+1. Welche Genres oder Stile sind unterrepräsentiert?
+2. Welche Epochen fehlen?
+3. Welche Stimmungen sind nicht abgedeckt?
+
+Empfehle 3-5 konkrete Schallplatten (Artist – Album) die die Sammlung 
+sinnvoll ergänzen würden. Erkläre jeweils kurz warum.
+Gib für jede Empfehlung auch das Genre und ungefähre Jahr an.
+Antworte auf Deutsch."""
+
     return ask_llm(prompt)
