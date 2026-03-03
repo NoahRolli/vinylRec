@@ -15,7 +15,7 @@ def main():
             handle_manage()
             collection = load_collection()
         elif choice == "3":
-            handle_purchase()
+            handle_purchase(collection)
         elif choice == "0":
             print("Bis bald!")
             break
