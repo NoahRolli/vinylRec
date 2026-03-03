@@ -1,4 +1,4 @@
-# Vinyl Recommendations
+# 🎵 Vinyl Recommendations
 
 Empfiehlt Schallplatten aus einer persönlichen Sammlung basierend auf Stimmung, Anlass und verfügbarer Hörzeit. Powered by Ollama (Llama 3).
 
@@ -66,6 +66,7 @@ uvicorn main:app --reload
 - **Stimmungscheck** — Bei negativer Stimmung werden zwei Optionen angeboten: Stimmung spiegeln oder heben
 - **Feedback-System** — Bewerte Empfehlungen, das System lernt für zukünftige Vorschläge
 - **Sammlungsverwaltung** — Platten hinzufügen, bearbeiten und löschen (CRUD)
+- **Kaufempfehlungen** — LLM analysiert Lücken in der Sammlung, Discogs-Suche für konkrete Platten
 - **Ladeanimation** — Spinner zeigt an, dass Ollama arbeitet
 - **REST API** — FastAPI-Endpunkte für zukünftiges Web-Frontend
 
@@ -82,11 +83,12 @@ vinylrecommendations/
 │   ├── collection_manager.py # CRUD-Operationen
 │   ├── data_loader.py       # SQLite → Vinyl-Objekte
 │   ├── db_setup.py          # Datenbank erstellen
+│   ├── discogs.py           # Discogs-API Anbindung
 │   ├── feedback_manager.py  # Feedback speichern + laden
 │   ├── llm.py               # Ollama HTTP-Kommunikation
 │   └── spinner.py           # Ladeanimation
 ├── infra/                   # Konfiguration
-│   └── settings.py          # Pfade, Ollama-Config
+│   └── settings.py          # Pfade, Ollama-Config, API-Tokens
 ├── frontend/                # Web-Interface (in Entwicklung)
 │   ├── css/style.css
 │   ├── js/app.js
@@ -117,6 +119,7 @@ graph TD
         DL[data_loader.py<br/>DB lesen]
         CM[collection_manager.py<br/>CRUD]
         FM[feedback_manager.py<br/>Feedback]
+        DC[discogs.py<br/>Discogs API]
         SPIN[spinner.py<br/>Animation]
     end
     
@@ -130,11 +133,13 @@ graph TD
     CM --> MODELS
     
     LLM --> OLLAMA[(Ollama<br/>Llama 3)]
+    DC --> DISCOGS[(Discogs API)]
     DL --> DB[(SQLite<br/>vinyl_collection.db)]
     CM --> DB
     FM --> DB
     SETTINGS --> DL
     SETTINGS --> LLM
+    SETTINGS --> DC
 ```
 
 ---
@@ -176,7 +181,7 @@ graph TD
 - [x] Feedback-System
 - [x] Stimmungscheck
 - [x] FastAPI Endpunkte
-- [ ] Kaufempfehlungen (Discogs API)
+- [x] Kaufempfehlungen (Discogs API)
 - [ ] Web-Frontend (HTML/CSS/JS)
 - [ ] Unit Tests
 - [ ] Web-Interface (React Migration)
@@ -185,4 +190,4 @@ graph TD
 
 ## Lizenz
 
-Privates Projekt.
+Privates Projekt - Noah Rolli
