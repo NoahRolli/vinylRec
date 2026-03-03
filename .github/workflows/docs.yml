@@ -1,0 +1,36 @@
+# Dokumentation automatisch bauen und auf GitHub Pages deployen
+# Läuft bei jedem Push auf main
+name: Docs
+
+on:
+  push:
+    branches: [main]
+
+# Berechtigung um auf GitHub Pages zu deployen
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Repository auschecken
+      - uses: actions/checkout@v4
+
+      # Python installieren
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # MkDocs und Material Theme installieren
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs
+          pip install mkdocs-material
+
+      # Dokumentation bauen und deployen
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
