@@ -1,5 +1,6 @@
 from core.models import Vinyl
-from core.recommender import get_recommendation
+from core.recommender import get_recommendation, get_purchase_recommendation
+from services.discogs import search_records
 from services.collection_manager import add_vinyl, delete_vinyl, update_vinyl, list_collection
 from services.feedback_manager import save_feedback
 from services.spinner import Spinner
@@ -141,7 +142,45 @@ def handle_manage():
             print("\n✓ Gelöscht!")
 
 
-def handle_purchase():
-    """Platzhalter für Kaufempfehlungen."""
-    print("\n--- Kaufempfehlung ---")
-    print("(kommt bald)")
+def handle_purchase(collection):
+    """Kaufempfehlungen basierend auf Sammlungsanalyse + Discogs-Suche."""
+    print("\n--- Kaufempfehlung (q = zurück) ---")
+
+    # LLM analysiert die Sammlung und empfiehlt was fehlt
+    spinner = Spinner("Ich analysiere deine Sammlung")
+    spinner.start()
+    empfehlung = get_purchase_recommendation(collection)
+    spinner.stop()
+    print(empfehlung)
+
+    # Optional: Auf Discogs nach konkreten Platten suchen
+    print("\n--- Discogs-Suche (q = zurück) ---")
+    search = ask("Möchtest du auf Discogs nach einer Platte suchen? (ja/nein): ")
+    if search is None or search.lower() != "ja":
+        return
+
+    while True:
+        query = ask("Suchbegriff (Artist, Album, Genre): ")
+        if query is None or query.lower() == "fertig":
+            break
+
+        genre = ask("Genre-Filter (Enter für keinen): ")
+        if genre is None:
+            break
+
+        print("\nSuche auf Discogs...\n")
+        results = search_records(query, genre=genre if genre else "")
+
+        if not results:
+            print("Keine Ergebnisse gefunden.")
+        else:
+            for i, r in enumerate(results, 1):
+                print(f"  [{i}] {r['title']}")
+                print(f"      Genre: {r['genre']} | Stil: {r['style']}")
+                print(f"      Jahr: {r['year']} | Land: {r['country']}")
+                print(f"      Label: {r['label']}")
+                print()
+
+        again = ask("Nochmal suchen? (ja/nein): ")
+        if again is None or again.lower() != "ja":
+            break
