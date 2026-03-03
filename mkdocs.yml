@@ -1,0 +1,24 @@
+# MkDocs Konfiguration für Vinyl Recommendations Dokumentation
+site_name: Vinyl Recommendations
+site_description: Schallplattenempfehlung basierend auf Stimmung, Anlass und Hörzeit
+site_author: Noah Rolli
+
+# Material Theme — modernes, sauberes Design
+theme:
+  name: material
+  language: de
+  palette:
+    scheme: slate
+    primary: deep purple
+    accent: amber
+  features:
+    - navigation.sections
+    - content.code.copy
+
+# Seitenstruktur
+nav:
+  - Home: index.md
+  - Architektur: architecture.md
+  - API Referenz: api.md
+  - Setup Guide: setup.md
+  - Changelog: changelog.md
