@@ -2,9 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from services.data_loader import load_collection
 from core.recommender import get_recommendation
-from services.collection_manager import add_vinyl, delete_vinyl, update_vinyl
+from services.collection_manager import add_vinyl, delete_vinyl
 from services.feedback_manager import save_feedback, get_recent_feedback
 from core.models import Vinyl
+from services.discogs import search_records
 
 # FastAPI-Instanz erstellen
 app = FastAPI(title="Vinyl Recommendations API")
@@ -88,3 +89,10 @@ def add_feedback(vinyl_id: int, mood: str, occasion: str,
 def get_feedback():
     """Gibt die letzten Feedbacks zurück."""
     return get_recent_feedback()
+
+# === Discogs ===
+
+@app.get("/api/discogs/search")
+def discogs_search(query: str, genre: str = ""):
+    """Sucht auf Discogs nach Schallplatten."""
+    return search_records(query, genre=genre)
