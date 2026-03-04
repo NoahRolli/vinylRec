@@ -8,14 +8,14 @@ from infra.settings import COLLECTION_FILE, DB_FILE
 
 def create_database():
     """Erstellt die SQLite-Datenbank aus der CSV-Datei."""
-    # Alte Daten löschen falls Tabelle schon existiert
-    cursor.execute("DROP TABLE IF EXISTS feedback")
-    cursor.execute("DROP TABLE IF EXISTS vinyl")
-
     # Verbindung zur Datenbank herstellen (erstellt die Datei falls sie nicht existiert)
     connection = sqlite3.connect(DB_FILE)
     # Cursor ist wie ein Zeiger — damit führen wir SQL-Befehle aus
     cursor = connection.cursor()
+
+    # Alte Daten löschen falls Tabelle schon existiert
+    cursor.execute("DROP TABLE IF EXISTS feedback")
+    cursor.execute("DROP TABLE IF EXISTS vinyl")
 
     # === Vinyl-Tabelle erstellen ===
     # IF NOT EXISTS: Tabelle nur erstellen wenn sie noch nicht da ist
