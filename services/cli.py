@@ -32,13 +32,16 @@ def handle_recommendation(collection):
     print("\n--- Schallplattenempfehlung (q = zurück) ---")
 
     mood = ask("Wie ist deine Stimmung? ")
-    if mood is None: return
+    if mood is None: 
+        return
 
     occasion = ask("Was ist der Anlass? ")
-    if occasion is None: return
+    if occasion is None: 
+        return
 
     duration = ask("Wie lange willst du hören? ")
-    if duration is None: return
+    if duration is None: 
+        return
 
     spinner = Spinner("Ich durchstöbere deine Sammlung")
     spinner.start()
@@ -61,10 +64,12 @@ def handle_recommendation(collection):
             break
 
         rating = ask("Bewertung (gut/mittel/schlecht): ")
-        if rating is None: break
+        if rating is None: 
+            break
 
         comment = ask("Kommentar (Enter für keinen): ")
-        if comment is None: break
+        if comment is None: 
+            break
 
         save_feedback(
             vinyl_id=int(vinyl_id),
@@ -88,26 +93,34 @@ def handle_manage():
         print("4 - Platte löschen")
 
         choice = ask("Auswahl: ")
-        if choice is None: return
+        if choice is None: 
+            return
 
         if choice == "1":
             list_collection()
 
         elif choice == "2":
             artist = ask("Artist: ")
-            if artist is None: return
+            if artist is None: 
+                return
             album = ask("Album: ")
-            if album is None: return
+            if album is None: 
+                return
             genre_primary = ask("Genre (primär): ")
-            if genre_primary is None: return
+            if genre_primary is None:
+                return
             genre_secondary = ask("Genre (sekundär): ")
-            if genre_secondary is None: return
+            if genre_secondary is None:
+                return
             mood = ask("Mood: ")
-            if mood is None: return
+            if mood is None:
+                return
             year = ask("Jahr: ")
-            if year is None: return
+            if year is None:
+                return
             vinyl_type = ask("Typ (studio/compilation/live): ")
-            if vinyl_type is None: return
+            if vinyl_type is None:
+                return
 
             vinyl = Vinyl(
                 artist=artist,
@@ -124,11 +137,14 @@ def handle_manage():
         elif choice == "3":
             list_collection()
             vinyl_id = ask("ID der Platte: ")
-            if vinyl_id is None: return
+            if vinyl_id is None:
+                return
             field = ask("Welches Feld? (artist/album/genre_primary/genre_secondary/mood/year/type): ")
-            if field is None: return
+            if field is None:
+                return
             value = ask("Neuer Wert: ")
-            if value is None: return
+            if value is None:
+                return
 
             update_vinyl(int(vinyl_id), field, value)
             print("\n✓ Aktualisiert!")
@@ -136,7 +152,8 @@ def handle_manage():
         elif choice == "4":
             list_collection()
             vinyl_id = ask("ID der Platte die gelöscht werden soll: ")
-            if vinyl_id is None: return
+            if vinyl_id is None:
+                return
 
             delete_vinyl(int(vinyl_id))
             print("\n✓ Gelöscht!")
