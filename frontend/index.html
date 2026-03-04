@@ -39,36 +39,127 @@
         </div>
         <button id="get-recommendation" class="primary-btn">Empfehlung holen</button>
 
-        <!-- Ladeanimation — wird per JS ein-/ausgeblendet -->
+        <!-- Ladeanimation mit Fortschrittsbalken und Abbrechen -->
         <div id="loading" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Ich durchstöbere deine Sammlung...</p>
+            <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+            <p class="status-text" id="loading-status">Verbindung zu Ollama wird hergestellt...</p>
+            <button class="cancel-btn" id="cancel-recommendation">Abbrechen</button>
         </div>
 
-        <!-- Ergebnis — wird per JS befüllt -->
         <div id="result" class="result hidden"></div>
+
+        <!-- Feedback nach Empfehlung -->
+        <div id="feedback-section" class="hidden">
+            <h3>Wie war die Empfehlung?</h3>
+            <div class="feedback-buttons">
+                <button class="feedback-btn" data-rating="gut">👍 Gut</button>
+                <button class="feedback-btn" data-rating="mittel">😐 Mittel</button>
+                <button class="feedback-btn" data-rating="schlecht">👎 Schlecht</button>
+            </div>
+            <div class="form-group">
+                <label for="feedback-comment">Kommentar (optional)</label>
+                <input type="text" id="feedback-comment" placeholder="z.B. zu melancholisch zum Kochen">
+            </div>
+            <div id="feedback-result" class="result hidden"></div>
+        </div>
     </section>
 
-    <!-- Bereich 2: Sammlung -->
+<!-- Bereich 2: Sammlung -->
     <section id="collection" class="section hidden">
         <h2>Deine Sammlung</h2>
 
+        <!-- Suchfeld zum Filtern -->
+        <div class="form-group">
+            <label for="collection-filter">Suche / Filter</label>
+            <input type="text" id="collection-filter" placeholder="Artist, Album, Genre, Mood...">
+        </div>
+
         <!-- Tabelle wird per JS befüllt -->
         <div id="collection-list"></div>
+
+        <!-- Neue Platte hinzufügen — aufklappbar -->
+        <div class="collapsible">
+            <button class="collapsible-btn" id="toggle-add-form">+ Neue Platte hinzufügen</button>
+            <div id="add-form" class="collapsible-content hidden">
+                <div class="form-group">
+                    <label for="add-artist">Artist</label>
+                    <input type="text" id="add-artist" placeholder="z.B. Miles Davis">
+                </div>
+                <div class="form-group">
+                    <label for="add-album">Album</label>
+                    <input type="text" id="add-album" placeholder="z.B. Kind of Blue">
+                </div>
+                <div class="form-group">
+                    <label for="add-genre-primary">Genre (primär)</label>
+                    <input type="text" id="add-genre-primary" placeholder="z.B. Jazz">
+                </div>
+                <div class="form-group">
+                    <label for="add-genre-secondary">Genre (sekundär)</label>
+                    <input type="text" id="add-genre-secondary" placeholder="z.B. Modal Jazz">
+                </div>
+                <div class="form-group">
+                    <label for="add-mood">Mood</label>
+                    <input type="text" id="add-mood" placeholder="z.B. Smooth">
+                </div>
+                <div class="form-group">
+                    <label for="add-year">Jahr</label>
+                    <input type="text" id="add-year" placeholder="z.B. 1959">
+                </div>
+                <div class="form-group">
+                    <label for="add-type">Typ</label>
+                    <input type="text" id="add-type" placeholder="studio / compilation / live">
+                </div>
+                <button id="add-vinyl" class="primary-btn">Hinzufügen</button>
+                <div id="add-result" class="result hidden"></div>
+            </div>
+        </div>
     </section>
 
-    <!-- Bereich 3: Kaufempfehlung -->
+     <!-- Bereich 3: Kaufempfehlung -->
     <section id="purchase" class="section hidden">
         <h2>Kaufempfehlung</h2>
-        <p>Analysiert deine Sammlung und zeigt Lücken auf.</p>
+
+        <!-- Richtung wählen -->
+        <div class="form-group">
+            <label for="purchase-goal">Was ist dein Ziel?</label>
+            <select id="purchase-goal">
+                <option value="luecken">Lücken füllen — was fehlt in meiner Sammlung?</option>
+                <option value="ergaenzen">Ergänzen — mehr von dem was ich mag</option>
+                <option value="neues">Neues entdecken — etwas ganz anderes</option>
+            </select>
+        </div>
+
+        <!-- Optionale Details -->
+        <div class="form-group">
+            <label for="purchase-details">Weitere Details (optional)</label>
+            <input type="text" id="purchase-details" placeholder="z.B. mehr 70er Jazz, oder etwas Elektronisches">
+        </div>
+
         <button id="get-purchase" class="primary-btn">Sammlung analysieren</button>
 
         <div id="purchase-loading" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Ich analysiere deine Sammlung...</p>
+            <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+            <p class="status-text" id="purchase-status">Verbindung zu Ollama wird hergestellt...</p>
+            <button class="cancel-btn" id="cancel-purchase">Abbrechen</button>
         </div>
 
         <div id="purchase-result" class="result hidden"></div>
+
+        <!-- Discogs Suche -->
+        <div id="discogs-search" class="hidden">
+            <h3>Auf Discogs suchen</h3>
+            <div class="form-group">
+                <label for="discogs-query">Suchbegriff</label>
+                <input type="text" id="discogs-query" placeholder="Artist, Album, Genre...">
+            </div>
+            <div class="form-group">
+                <label for="discogs-genre">Genre-Filter (optional)</label>
+                <input type="text" id="discogs-genre" placeholder="z.B. Jazz, Rock, Soul">
+            </div>
+            <button id="search-discogs" class="primary-btn">Auf Discogs suchen</button>
+            <div id="discogs-results"></div>
+        </div>
+    </section>
 
         <!-- Discogs Suche -->
         <div id="discogs-search" class="hidden">
