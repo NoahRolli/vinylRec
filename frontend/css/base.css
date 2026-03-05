@@ -1,0 +1,59 @@
+/* === Reset und Grundstil === */
+/* Box-sizing border-box: Padding wird in die Breite eingerechnet */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Grundschrift und Hintergrund */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* === Header === */
+header {
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #333;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #ffffff;
+}
+
+header p {
+    color: #888;
+    margin-top: 8px;
+}
+
+/* === Sektionen === */
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* === Ergebnis === */
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #2a2a4a;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    line-height: 1.8;
+}

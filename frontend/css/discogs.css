@@ -1,0 +1,18 @@
+/* === Discogs Ergebnisse === */
+.discogs-item {
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #2a2a4a;
+    border-radius: 8px;
+    border-left: 3px solid #6c5ce7;
+}
+
+.discogs-item h4 {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.discogs-item p {
+    color: #aaa;
+    font-size: 0.9rem;
+}

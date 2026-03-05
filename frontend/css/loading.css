@@ -1,0 +1,70 @@
+/* === Ladeanimation === */
+.loading {
+    text-align: center;
+    padding: 30px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #333;
+    border-top-color: #6c5ce7;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* === Fortschrittsbalken === */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: #333;
+    border-radius: 3px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6c5ce7, #a29bfe, #6c5ce7);
+    background-size: 200% 100%;
+    border-radius: 3px;
+    animation: progress-move 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-move {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* === Statustext === */
+.status-text {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    text-align: center;
+}
+
+/* === Abbrechen === */
+.cancel-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+    background-color: #e74c3c;
+    color: #fff;
+}

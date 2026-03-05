@@ -1,0 +1,30 @@
+/* === Navigation === */
+/* Flexbox: Buttons nebeneinander, gleichmässig verteilt */
+nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.nav-btn {
+    flex: 1;
+    padding: 12px;
+    background-color: #2a2a4a;
+    color: #888;
+    border: 1px solid #333;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: #3a3a5a;
+    color: #fff;
+}
+
+.nav-btn.active {
+    background-color: #6c5ce7;
+    color: #fff;
+    border-color: #6c5ce7;
+}
