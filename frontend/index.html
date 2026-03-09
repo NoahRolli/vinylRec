@@ -144,4 +144,29 @@
         <button id="get-purchase" class="primary-btn">Sammlung analysieren</button>
 
         <div id="purchase-loading" class="loading hidden">
-            <div class="progress-bar"><div class="progress-bar
+            <div id="purchase-loading" class="loading hidden">
+            <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+            <p class="status-text" id="purchase-status">Sammlung wird analysiert...</p>
+            <button class="cancel-btn" id="cancel-purchase">Abbrechen</button>
+        </div>
+
+        <!-- Ergebnis der Kaufempfehlung -->
+        <div id="purchase-result" class="result hidden"></div>
+
+        <!-- Discogs Suchergebnisse -->
+        <div id="discogs-results" class="hidden">
+            <h3>Auf Discogs gefunden:</h3>
+            <div id="discogs-list"></div>
+        </div>
+    </section>
+
+    <!-- JavaScript aufgeteilt nach Bereichen -->
+    <script src="js/config.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/recommend.js"></script>
+    <script src="js/collection.js"></script>
+    <script src="js/purchase.js"></script>
+
+</body>
+</html>
